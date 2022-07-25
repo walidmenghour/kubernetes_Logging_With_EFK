@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: random-logger
+  labels:
+    app: random-logger
+spec:
+  containers:
+    - name: randomlogger
+      image: chentex/random-logger

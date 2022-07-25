@@ -1,0 +1,48 @@
+==============================================================================
+			Demo 1  : Test Message Stream docker 
+==============================================================================
+docker run -d busybox echo -n "HELLO SSI"
+-d pour recepire le hash ou id de container 
+container id 
+cd /var/lib/docker/containers 
+cd id 
+
+================================================================================
+Lancement de Minikube  
+================================================================================
+	minikube start 
+	kubectl create -f kube-logging.yaml
+	kubectl create -f elasticsearch_svc.yaml
+	kubectl create -f elasticsearch-pv.yaml
+	kubectl create -f elasticsearch_statefulset.yaml
+	kubectl create -f kibana.yaml			
+	kubectl create -f fluentd.yaml
+
+	kubectl port-forward [kibana-name-pod]  5601:5601 --namespace=kube-logging
+	
+	http://localhost:5601
+#########################################################################################
+	Creation des Pods Responsable de la generation des logs	
+#########################################################################################
+	kubectl create -f apache-test.yaml
+	kubectl create -f pod-SSI.yaml
+	kubectl create -f random_messages.yaml
+	kubectl get pods -n kube-logging 
+	
+	
+		
+########## POUR LA VERIFICATION	
+	
+kubectl get services --namespace=kube-logging
+		
+=========================================
+Pour la suppresion des different pods :
+=========================================
+
+kubectl delete -f fluentd.yaml
+kubectl delete -f kibana.yaml			
+kubectl delete -f elasticsearch_statefulset.yaml
+kubectl delete -f elasticsearch-pv.yaml
+kubectl delete -f elasticsearch_svc.yaml
+kubectl delete -f kube-logging.yaml
+
